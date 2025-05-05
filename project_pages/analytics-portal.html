@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Analytics Portal - Zach Lee</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .project-detail {
+            min-height: 100vh;
+            padding: 7rem 2rem 5rem;
+            background-image: linear-gradient(
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.5)
+            ), url('../zion.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #E8E8E8;
+        }
+        
+        .project-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(26, 26, 26, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        
+        .project-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .project-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #E8E8E8;
+        }
+        
+        .project-tech {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        
+        .project-tech img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+            padding: 5px;
+            background-color: transparent;
+            border-radius: 5px;
+            filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+            mix-blend-mode: lighten;
+            backdrop-filter: brightness(1.1);
+            transition: transform 0.2s;
+        }
+        
+        .project-tech img:hover {
+            transform: scale(1.15);
+            box-shadow: 0 3px 6px rgba(192, 192, 192, 0.3);
+            filter: drop-shadow(0 3px 4px rgba(255, 255, 255, 0.2));
+        }
+        
+        .project-banner {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-banner:hover {
+            transform: scale(1.02);
+        }
+        
+        .project-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .project-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #C0C0C0;
+            color: #E8E8E8;
+        }
+        
+        .project-section p {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #333, #444);
+            color: #E8E8E8;
+            text-decoration: none;
+            border-radius: 20px;
+            border: 1px solid #C0C0C0;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: linear-gradient(
+                45deg,
+                #999 5%,
+                #fff 10%,
+                #ccc 30%,
+                #ddd 50%,
+                #ccc 70%,
+                #fff 80%,
+                #999 95%
+            );
+            color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(192, 192, 192, 0.3);
+        }
+        
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Custom styling for specific logos */
+        .project-tech img[alt="SQL"] {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 6px;
+        }
+
+        .project-tech img[alt="Python"] {
+            mix-blend-mode: screen;
+        }
+
+        .project-tech img[alt="Tableau"] {
+            mix-blend-mode: screen;
+        }
+
+        .project-tech img[alt="Excel"] {
+            mix-blend-mode: screen;
+        }
+        
+        /* Add scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(
+                to right,
+                #999 5%,
+                #fff 10%,
+                #ccc 30%,
+                #ddd 50%,
+                #ccc 70%,
+                #fff 80%,
+                #999 95%
+            );
+            z-index: 1001;
+            transition: width 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand"></div>
+        <ul class="nav-links">
+            <li><a href="../index.html#home">Home</a></li>
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Project Detail Section -->
+    <section class="project-detail">
+        <div class="project-container">
+            <div class="project-header">
+                <h1>Interactive Analytics Portal</h1>
+                <div class="project-tech">
+                    <img src="../tableau.webp" alt="Tableau" title="Tableau">
+                    <img src="../SQL.jpg" alt="SQL" title="SQL">
+                </div>
+            </div>
+            
+            <img src="../code.jpg" alt="Interactive Analytics Portal" class="project-banner">
+            
+            <div class="project-section">
+                <h2>Overview</h2>
+                <p>A web-based dashboard providing real-time analytics and visualization of key business metrics for executive decision-making. Detailed project information coming soon.</p>
+            </div>
+            
+            <div class="project-section">
+                <h2>Methodology</h2>
+                <p>This project leverages Tableau and SQL for powerful data visualization and analysis. Full methodology details coming soon.</p>
+            </div>
+            
+            <a href="../index.html#projects" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Zach Lee. All rights reserved.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html> 
