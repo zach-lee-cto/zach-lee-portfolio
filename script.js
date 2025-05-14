@@ -7,9 +7,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         if (!targetElement) return;
         
-        // Close mobile menu if it's open
+        // Force close mobile menu if it's open (enhanced for iOS)
         if (document.querySelector('.mobile-nav.active')) {
-            toggleMobileMenu();
+            closeMobileMenu();
         }
         
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
@@ -40,31 +40,109 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Mobile menu toggle functionality
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const mobileNav = document.querySelector('.mobile-nav');
+let menuOpen = false;
+
+// Function to specifically close the mobile menu (not toggle)
+function closeMobileMenu() {
+    mobileMenuToggle.classList.remove('active');
+    mobileNav.classList.remove('active');
+    document.body.style.overflow = '';
+    menuOpen = false;
+    
+    // Force hide on iOS to prevent any display issues
+    mobileNav.style.transform = 'translateY(-100%)';
+    
+    // Extra delay to ensure animation completes on iOS
+    setTimeout(() => {
+        if (!menuOpen) {
+            mobileNav.style.display = 'none';
+            setTimeout(() => {
+                if (!menuOpen) {
+                    mobileNav.style.display = 'block';
+                }
+            }, 50);
+        }
+    }, 300);
+}
 
 function toggleMobileMenu() {
+    menuOpen = !menuOpen;
     mobileMenuToggle.classList.toggle('active');
     mobileNav.classList.toggle('active');
     
     // Prevent body scrolling when menu is open
-    if (mobileNav.classList.contains('active')) {
+    if (menuOpen) {
         document.body.style.overflow = 'hidden';
+        mobileNav.style.transform = 'translateY(0)';
     } else {
         document.body.style.overflow = '';
+        mobileNav.style.transform = 'translateY(-100%)';
+        
+        // Extra check to ensure menu closes on iOS
+        closeMobileMenu();
     }
 }
 
 if (mobileMenuToggle) {
     mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    
+    // Add touch event for better iOS responsiveness
+    mobileMenuToggle.addEventListener('touchend', function(e) {
+        e.preventDefault(); // Prevent double-firing on iOS
+    }, false);
 }
 
 // Also handle click events on mobile nav links
 document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function(e) {
         // Close the mobile menu when a link is clicked
         if (mobileNav.classList.contains('active')) {
-            toggleMobileMenu();
+            e.preventDefault(); // Ensure we handle the navigation
+            closeMobileMenu();
+            
+            // Navigate after a short delay to ensure menu closes
+            const href = this.getAttribute('href');
+            setTimeout(() => {
+                document.querySelector(href).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }, 300);
         }
     });
+    
+    // Add touch event listener for iOS
+    link.addEventListener('touchend', function(e) {
+        if (mobileNav.classList.contains('active')) {
+            e.preventDefault();
+            closeMobileMenu();
+            
+            // Navigate after menu closes
+            const href = this.getAttribute('href');
+            setTimeout(() => {
+                document.querySelector(href).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }, 300);
+        }
+    }, false);
+});
+
+// Check for iOS-specific issues with position:fixed elements
+document.addEventListener('DOMContentLoaded', function() {
+    // Detect iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    if (isIOS) {
+        // Add iOS-specific class for additional styling
+        document.body.classList.add('ios-device');
+        
+        // Add additional touchend handlers to ensure menu closes
+        document.addEventListener('touchend', function(e) {
+            if (menuOpen && !mobileNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                closeMobileMenu();
+            }
+        }, false);
+    }
 });
 
 // Update scroll event listener for navbar
@@ -74,6 +152,11 @@ window.addEventListener('scroll', function() {
         navbar.style.background = '#1a1a1a';
     } else {
         navbar.style.background = '#1a1a1a';
+    }
+    
+    // Close mobile menu on scroll
+    if (menuOpen) {
+        closeMobileMenu();
     }
 });
 
