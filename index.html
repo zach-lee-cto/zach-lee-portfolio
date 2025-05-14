@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a1a">
     <title>Zach Lee - Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -11,6 +14,9 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-brand"></div>
+        <div class="mobile-menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -18,6 +24,16 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav">
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -87,16 +103,9 @@
                     <h3>Market Analysis Dashboard</h3>
                     <p>An interactive dashboard analyzing market trends and customer behavior patterns, providing actionable insights for strategic decision-making.</p>
                     <div class="tech-stack">
-                        <img src="python.webp" alt="Python" title="Python">
-                        <img src="tableau.webp" alt="Tableau" title="Tableau">
-                        <img src="SQL.jpg" alt="SQL" title="SQL">
-                        <!-- 
-                        Alternative: Use Font Awesome icons for a cleaner look:
                         <i class="fab fa-python" title="Python"></i>
-                        <i class="fas fa-database" title="SQL"></i>
                         <i class="fas fa-chart-bar" title="Tableau"></i>
-                        <i class="fas fa-file-excel" title="Excel"></i>
-                        -->
+                        <i class="fas fa-database" title="SQL"></i>
                     </div>
                     <div class="project-links">
                         <a href="project_pages/market-analysis-dashboard.html" target="_blank">View Project</a>
@@ -114,8 +123,8 @@
                     <h3>Financial Modeling Suite</h3>
                     <p>A comprehensive financial model for valuations and forecasting, incorporating multiple scenarios and sensitivity analysis.</p>
                     <div class="tech-stack">
-                        <img src="excel.png" alt="Excel" title="Excel">
-                        <img src="python.webp" alt="Python" title="Python">
+                        <i class="fas fa-file-excel" title="Excel"></i>
+                        <i class="fab fa-python" title="Python"></i>
                     </div>
                     <div class="project-links">
                         <a href="project_pages/financial-modeling-suite.html" target="_blank">View Project</a>
@@ -133,8 +142,8 @@
                     <h3>Automated ETL Pipeline</h3>
                     <p>Developed an automated data pipeline for extracting, transforming, and loading data from multiple sources into a centralized warehouse.</p>
                     <div class="tech-stack">
-                        <img src="python.webp" alt="Python" title="Python">
-                        <img src="SQL.jpg" alt="SQL" title="SQL">
+                        <i class="fab fa-python" title="Python"></i>
+                        <i class="fas fa-database" title="SQL"></i>
                     </div>
                     <div class="project-links">
                         <a href="project_pages/automated-etl-pipeline.html" target="_blank">View Project</a>
@@ -152,8 +161,8 @@
                     <h3>Interactive Analytics Portal</h3>
                     <p>A web-based dashboard providing real-time analytics and visualization of key business metrics for executive decision-making.</p>
                     <div class="tech-stack">
-                        <img src="tableau.webp" alt="Tableau" title="Tableau">
-                        <img src="SQL.jpg" alt="SQL" title="SQL">
+                        <i class="fas fa-chart-bar" title="Tableau"></i>
+                        <i class="fas fa-database" title="SQL"></i>
                     </div>
                     <div class="project-links">
                         <a href="project_pages/analytics-portal.html" target="_blank">View Project</a>
@@ -171,9 +180,9 @@
                     <h3>Predictive Revenue Model</h3>
                     <p>A machine learning-based forecasting tool that predicts revenue trends based on historical data and market variables.</p>
                     <div class="tech-stack">
-                        <img src="python.webp" alt="Python" title="Python">
-                        <img src="excel.png" alt="Excel" title="Excel">
-                        <img src="tableau.webp" alt="Tableau" title="Tableau">
+                        <i class="fab fa-python" title="Python"></i>
+                        <i class="fas fa-file-excel" title="Excel"></i>
+                        <i class="fas fa-chart-bar" title="Tableau"></i>
                     </div>
                     <div class="project-links">
                         <a href="project_pages/predictive-revenue-model.html" target="_blank">View Project</a>
@@ -191,9 +200,9 @@
                     <h3>Data Storytelling Platform</h3>
                     <p>An interactive data visualization platform that transforms complex datasets into compelling visual narratives for stakeholder presentations.</p>
                     <div class="tech-stack">
-                        <img src="tableau.webp" alt="Tableau" title="Tableau">
-                        <img src="python.webp" alt="Python" title="Python">
-                        <img src="SQL.jpg" alt="SQL" title="SQL">
+                        <i class="fas fa-chart-bar" title="Tableau"></i>
+                        <i class="fab fa-python" title="Python"></i>
+                        <i class="fas fa-database" title="SQL"></i>
                     </div>
                     <div class="project-links">
                         <a href="project_pages/data-storytelling-platform.html" target="_blank">View Project</a>

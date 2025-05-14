@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Removes the tap highlight on iOS */
 }
 
 body {
@@ -13,6 +14,7 @@ body {
     background-color: #1a1a1a;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
 
 /* Navigation */
@@ -35,6 +37,79 @@ body {
     font-weight: bold;
     color: #E8E8E8;
     text-shadow: 0 0 1px rgba(232, 232, 232, 0.5);
+}
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #E8E8E8;
+}
+
+.mobile-menu-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-toggle.active i {
+    transform: rotate(90deg);
+}
+
+/* Mobile Navigation Menu */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background-color: rgba(26, 26, 26, 0.98);
+    z-index: 999;
+    border-bottom: 1px solid #C0C0C0;
+    box-shadow: 0 2px 10px rgba(192, 192, 192, 0.2);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-nav.active {
+    transform: translateY(0);
+}
+
+.mobile-nav-links {
+    list-style: none;
+    padding: 1rem;
+}
+
+.mobile-nav-links li {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.mobile-nav-links a {
+    text-decoration: none;
+    color: #E8E8E8;
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: block;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-links a:hover,
+.mobile-nav-links a.active {
+    background: linear-gradient(
+        45deg,
+        #999 5%,
+        #fff 10%,
+        #ccc 30%,
+        #ddd 50%,
+        #ccc 70%,
+        #fff 80%,
+        #999 95%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
 }
 
 .nav-links {
@@ -227,6 +302,7 @@ section {
     background-color: #ffffff;
     transition: opacity 0.5s ease-out;
     opacity: 1;
+    background-attachment: scroll; /* Use scroll instead of fixed for iOS compatibility */
 }
 
 /* Remove opacity change for sections not in view for continuous scrolling */
@@ -343,6 +419,7 @@ h2 {
     flex-grow: 1;
 }
 
+/* Tech Stack Icons - Font Awesome Style */
 .tech-stack {
     display: flex;
     gap: 0.8rem;
@@ -350,19 +427,51 @@ h2 {
     flex-wrap: wrap;
 }
 
-.tech-stack img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-    border-radius: 4px;
-    background-color: transparent;
-    padding: 3px;
+.tech-stack i {
+    font-size: 28px;
+    color: #E8E8E8;
+    background-color: #1a1a1a;
+    padding: 8px;
+    border-radius: 6px;
+    margin-right: 8px;
+    transition: all 0.2s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s;
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
-    /* Custom styling for specific logos */
-    mix-blend-mode: lighten;
-    backdrop-filter: brightness(1.1);
+}
+
+.tech-stack i:hover {
+    transform: scale(1.15);
+    color: #FFF;
+    background: linear-gradient(
+        45deg,
+        #999 5%,
+        #fff 10%,
+        #ccc 30%,
+        #ddd 50%,
+        #ccc 70%,
+        #fff 80%,
+        #999 95%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    box-shadow: 0 3px 6px rgba(192, 192, 192, 0.3);
+}
+
+/* Specific styling for different icons */
+.tech-stack i.fa-python {
+    color: #3776AB;
+}
+
+.tech-stack i.fa-database {
+    color: #f29111;
+}
+
+.tech-stack i.fa-chart-bar {
+    color: #2d5b8e;
+}
+
+.tech-stack i.fa-file-excel {
+    color: #217346;
 }
 
 /* Custom styling for specific logos */
@@ -524,23 +633,47 @@ footer {
     text-shadow: 0 0 1px rgba(232, 232, 232, 0.5);
 }
 
-/* Responsive Design */
+/* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
     }
     
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .mobile-nav {
+        display: block;
+    }
+    
     .hero-content h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+    }
+    
+    .tagline {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 1rem;
+        margin: 0.3rem;
     }
     
     section {
-        padding: 3rem 1rem;
+        padding: 4rem 1rem;
+        min-height: auto;
     }
     
     .profile-image {
-        width: 150px;
-        height: 150px;
+        width: 180px;
+        height: 180px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .about-content {
+        padding: 1.5rem;
     }
     
     .about-grid {
@@ -551,9 +684,16 @@ footer {
         display: none;
     }
     
+    .skill-tags span {
+        padding: 0.3rem 0.8rem;
+        margin: 0.2rem;
+        font-size: 0.85rem;
+    }
+    
     .project-grid {
         grid-template-columns: 1fr;
-        padding: 1.5rem;
+        gap: 1.5rem;
+        padding: 0;
     }
     
     .project-card {
@@ -564,17 +704,30 @@ footer {
         height: 180px;
     }
     
-    .tech-stack img {
-        width: 25px;
-        height: 25px;
-    }
-    
     .project-info {
         padding: 1.2rem;
     }
     
     .project-info h3 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+    }
+    
+    .project-info p {
+        font-size: 0.95rem;
+    }
+    
+    .tech-stack i {
+        font-size: 24px;
+        padding: 6px;
+    }
+    
+    .project-links a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .contact-content {
+        padding: 1.5rem;
     }
     
     .social-links {
@@ -585,6 +738,92 @@ footer {
         width: 3rem;
         height: 3rem;
         font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    footer {
+        padding: 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Even smaller screens like phones */
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+    }
+    
+    .profile-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .project-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .skill-tags span {
+        padding: 0.25rem 0.6rem;
+        font-size: 0.8rem;
+    }
+    
+    .btn {
+        display: block;
+        width: 80%;
+        margin: 0.5rem auto;
+        text-align: center;
+    }
+    
+    .tech-stack i {
+        font-size: 20px;
+        padding: 5px;
+    }
+}
+
+/* Specifically target iOS devices with smaller screens */
+@media (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+    /* Higher resolution displays like iPhone */
+    .hero-content {
+        padding: 1.5rem;
+    }
+    
+    .profile-image {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 1.2rem;
+    }
+    
+    .project-card {
+        border-radius: 10px; /* Slightly reduce border radius for iOS aesthetics */
+    }
+    
+    .btn {
+        border-radius: 20px; /* Adjust button roundness for iOS */
+        padding: 0.8rem 1.5rem;
+    }
+    
+    /* Avoid notch intrusion on iPhone X and newer */
+    .navbar {
+        padding-top: calc(1rem + env(safe-area-inset-top));
+        padding-left: calc(2rem + env(safe-area-inset-left));
+        padding-right: calc(2rem + env(safe-area-inset-right));
+    }
+    
+    /* Add padding to the bottom of the last section for safe area */
+    footer {
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
     }
 }
 
@@ -722,33 +961,62 @@ section:not(.hero) {
     text-shadow: 0 0 1px rgba(232, 232, 232, 0.5);
 }
 
-/* Alternative styling for Font Awesome tech icons */
-.tech-stack i {
-    font-size: 28px;
-    color: #E8E8E8;
-    background-color: #1a1a1a;
-    padding: 8px;
-    border-radius: 6px;
-    margin-right: 8px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+/* iOS-specific styles for buttons and interactive elements */
+@supports (-webkit-touch-callout: none) {
+    /* iOS-specific styles */
+    .btn, 
+    .nav-links a, 
+    .mobile-nav-links a, 
+    .project-card, 
+    .social-links a {
+        /* Add momentum-based scrolling on iOS for smoother feel */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Improve button appearance on iOS */
+    .btn {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    /* Fix for position:fixed issues on iOS */
+    .navbar, 
+    .mobile-nav, 
+    .scroll-progress {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
 }
 
-.tech-stack i:hover {
-    transform: scale(1.15);
-    color: #FFF;
-    background: linear-gradient(
-        45deg,
-        #999 5%,
-        #fff 10%,
-        #ccc 30%,
-        #ddd 50%,
-        #ccc 70%,
-        #fff 80%,
-        #999 95%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    box-shadow: 0 3px 6px rgba(192, 192, 192, 0.3);
+/* Additional iOS optimizations for scrolling */
+.project-grid,
+.about-content,
+.contact-content {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* For iOS Safari bounce effect on background images */
+html {
+    background-color: #1a1a1a;
+    height: 100%;
+}
+
+/* More iOS optimizations for smooth scrolling and shadows */
+@supports (-webkit-touch-callout: none) {
+    /* Optimize shadows for better performance on iOS */
+    .navbar,
+    .project-card,
+    .btn.primary,
+    .btn.secondary {
+        -webkit-backdrop-filter: saturate(180%) blur(20px);
+        backdrop-filter: saturate(180%) blur(20px);
+    }
+    
+    /* Adjust fixed backgrounds for iOS */
+    .hero,
+    .about,
+    .projects,
+    .contact {
+        background-attachment: scroll;
+    }
 } 
